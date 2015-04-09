@@ -18,9 +18,12 @@ public:
 protected slots:
     void rest_get_LabelPrinter_Status(QTcpSocket *socket, const QStringList &headers, const QStringList &methodVariableParts,
                                       const QUrlQuery &queryParams, const QByteArray &body);
+    void rest_post_LabelPrinter_Print(QTcpSocket *socket, const QStringList &headers, const QStringList &methodVariableParts,
+                                       const QUrlQuery &queryParams, const QByteArray &body);
 
 private:
     void sendStatus(QTcpSocket *socket, bool isReady, const QString &reason);
+    void sendBadRequest(QTcpSocket *socket, const QString &reason);
 
 private:
     LabelPrinterHandler m_handler;

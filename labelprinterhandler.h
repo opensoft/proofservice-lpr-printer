@@ -9,6 +9,7 @@ public:
     explicit LabelPrinterHandler(const QString &printerName, const QString &printerHost, bool strictPrinterCheck);
 
     bool printerStatus(QString *errorMessage);
+    bool print(const QByteArray &label, QString *errorMessage);
 
 private:
     QString m_printerName;

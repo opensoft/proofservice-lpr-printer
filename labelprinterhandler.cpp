@@ -20,3 +20,15 @@ bool LabelPrinterHandler::printerStatus(QString *errorMessage)
     });
     return printer.printerIsReady();
 }
+
+bool LabelPrinterHandler::print(const QByteArray &label, QString *errorMessage)
+{
+    Proof::Hardware::LabelPrinter printer(m_printerName, m_printerHost, m_strictPrinterCheck);
+    QObject::connect(&printer, &Proof::Hardware::LabelPrinter::errorOccurred,
+                     &printer, [errorMessage](const QString &message) {
+        qCDebug(proofServiceLabelPrinter) << message;
+        if (errorMessage != nullptr)
+            *errorMessage = message;
+    });
+    return printer.printLabel(label);
+}
