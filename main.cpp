@@ -21,9 +21,8 @@ int main(int argc, char *argv[])
 
     QString printerName = printerGroup->value("printer_name").toString();
     QString printerHost = printerGroup->value("printer_host", "", Proof::Settings::NotFoundPolicy::Add).toString();
-    bool strictPrinterCheck = printerGroup->value("strict_printer_check", false, Proof::Settings::NotFoundPolicy::Add).toBool();
 
-    LabelPrinterRestServer server(userName, password, serverPort, printerName, printerHost, strictPrinterCheck);
+    LabelPrinterRestServer server(userName, password, serverPort, printerName, printerHost);
     server.startListen();
 
     return a.exec();

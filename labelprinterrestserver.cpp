@@ -4,9 +4,9 @@
 #include <QJsonDocument>
 
 LabelPrinterRestServer::LabelPrinterRestServer(const QString &userName, const QString &password, int port,
-                                               const QString &printerName, const QString &printerHost, bool strictPrinterCheck,
+                                               const QString &printerName, const QString &printerHost,
                                                QObject *parent)
-    : Proof::AbstractRestServer(userName, password, "", port, parent), m_handler(printerName, printerHost, strictPrinterCheck)
+    : Proof::AbstractRestServer(userName, password, "", port, parent), m_handler(printerName, printerHost)
 {
 
 }

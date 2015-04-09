@@ -6,7 +6,7 @@
 class LabelPrinterHandler
 {
 public:
-    explicit LabelPrinterHandler(const QString &printerName, const QString &printerHost, bool strictPrinterCheck);
+    explicit LabelPrinterHandler(const QString &printerName, const QString &printerHost);
 
     bool printerStatus(QString *errorMessage);
     bool print(const QByteArray &label, QString *errorMessage);
@@ -14,7 +14,6 @@ public:
 private:
     QString m_printerName;
     QString m_printerHost;
-    bool m_strictPrinterCheck;
 };
 
 #endif // LABELPRINTERHANDLER_H
