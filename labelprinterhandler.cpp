@@ -11,7 +11,7 @@ LabelPrinterHandler::LabelPrinterHandler(const QString &printerName, const QStri
 
 bool LabelPrinterHandler::printerStatus(QString *errorMessage)
 {
-    Proof::Hardware::LabelPrinter printer(m_printerName, m_printerHost, true);
+    Proof::Hardware::LabelPrinter printer(m_printerHost, m_printerName, true);
     QObject::connect(&printer, &Proof::Hardware::LabelPrinter::errorOccurred,
                      &printer, [errorMessage](const QString &message) {
         qCDebug(proofServiceLabelPrinter) << message;
@@ -23,7 +23,7 @@ bool LabelPrinterHandler::printerStatus(QString *errorMessage)
 
 bool LabelPrinterHandler::print(const QByteArray &label, QString *errorMessage)
 {
-    Proof::Hardware::LabelPrinter printer(m_printerName, m_printerHost, true);
+    Proof::Hardware::LabelPrinter printer(m_printerHost, m_printerName, true);
     QObject::connect(&printer, &Proof::Hardware::LabelPrinter::errorOccurred,
                      &printer, [errorMessage](const QString &message) {
         qCDebug(proofServiceLabelPrinter) << message;
