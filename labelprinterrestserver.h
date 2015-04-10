@@ -11,8 +11,7 @@ class LabelPrinterRestServer : public Proof::AbstractRestServer
 {
     Q_OBJECT
 public:
-    explicit LabelPrinterRestServer(const QString &userName, const QString &password, int port,
-                                    const QString &printerName, const QString &printerHost, QObject *parent = 0);
+    explicit LabelPrinterRestServer(int port, const QString &printerName, const QString &printerHost, QObject *parent = 0);
 
 protected slots:
     void rest_get_LabelPrinter_Status(QTcpSocket *socket, const QStringList &headers, const QStringList &methodVariableParts,

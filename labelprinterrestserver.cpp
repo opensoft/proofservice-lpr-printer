@@ -3,10 +3,9 @@
 #include <QJsonObject>
 #include <QJsonDocument>
 
-LabelPrinterRestServer::LabelPrinterRestServer(const QString &userName, const QString &password, int port,
-                                               const QString &printerName, const QString &printerHost,
-                                               QObject *parent)
-    : Proof::AbstractRestServer(userName, password, "", port, parent), m_handler(printerName, printerHost)
+LabelPrinterRestServer::LabelPrinterRestServer(int port, const QString &printerName, const QString &printerHost, QObject *parent)
+    : Proof::AbstractRestServer("", port, Proof::RestAuthType::NoAuth, parent),
+      m_handler(printerName, printerHost)
 {
 
 }
