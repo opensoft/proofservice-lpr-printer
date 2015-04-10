@@ -1,7 +1,7 @@
 TARGET = proofservice-label-printer
 TEMPLATE = app
 
-VERSION = 0.14.11.6
+VERSION = 0.15.4.10
 
 QT += core network
 QT -= gui
