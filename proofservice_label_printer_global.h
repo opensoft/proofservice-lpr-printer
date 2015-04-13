@@ -3,6 +3,6 @@
 
 #include <QLoggingCategory>
 
-Q_DECLARE_LOGGING_CATEGORY(proofServiceLabelPrinter)
+Q_DECLARE_LOGGING_CATEGORY(proofServiceLabelPrinterLog)
 
 #endif // PROOFSERVICE_LABEL_PRINTER_GLOBAL_H

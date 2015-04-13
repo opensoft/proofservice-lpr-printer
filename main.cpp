@@ -6,7 +6,7 @@
 
 #include "labelprinterrestserver.h"
 
-Q_LOGGING_CATEGORY(proofServiceLabelPrinter, "proofservices.label-printer")
+Q_LOGGING_CATEGORY(proofServiceLabelPrinterLog, "proofservices.label-printer")
 
 int main(int argc, char *argv[])
 {
