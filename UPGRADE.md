@@ -1,6 +1,6 @@
 Upgrades
 ========
-Changes that one must make to applications based on Proof between versions.
+Changes that one must make to the application between versions.
 
 ## Not Released
 #### IT issues
@@ -8,6 +8,3 @@ Changes that one must make to applications based on Proof between versions.
 
 #### Config changes
 *Config was not changed*
-
-#### API modifications/removals/deprecations
- * ObjectsCache::add() now accepts one more optional argument *overwriteCurrent* and returns shared pointer either to inserted object or (if *overwriteCurrent==true* and cache already contains this key) existing value

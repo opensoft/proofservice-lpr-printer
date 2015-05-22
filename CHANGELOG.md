@@ -1,9 +1,9 @@
-Proof Changelog
-===============
+Changelog
+=========
 
 ## Not Released
 #### Features
- * Object caches add() method is thread-safe now
+ * Add here
 
 #### Bug Fixing
  * Add here
