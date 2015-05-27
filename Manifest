@@ -1,0 +1,18 @@
+#!/bin/bash
+
+PACKAGE_NAME="proofservice-label-printer"
+PROJECT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+PROJECT_FILE="$PROJECT_DIR/proofservice-label-printer.pro"
+VERSION="$(grep -e "VERSION\ =" $PROJECT_FILE | sed 's/^VERSION\ =\ \(.*\)/\1/')"
+MAINTAINER="Dmitry Gurevich <dmitry.gurevich@tech-corps.com>"
+DESCRIPTION="Proof-based service for remote labels printing.
+ Proof-based service for remote labels printing.
+"
+
+PREBUILD="
+export VERSION_CHECK_PATTERN='qt5:proof';
+export IGNORE_PACKAGES_PATTERN='fglrx';
+export PROOF_PATH=/opt/Opensoft/proof;
+export LD_LIBRARY_PATH=\$PROOF_PATH/lib;
+export QMAKEFEATURES=\$PROOF_PATH/features;
+" 
