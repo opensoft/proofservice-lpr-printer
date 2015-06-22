@@ -3,7 +3,7 @@ TEMPLATE = app
 
 VERSION = 0.15.4.10
 
-CONFIG += proofhardwarelabelprinter
+CONFIG += proofhardwarelprprinter
 
 SOURCES += \
     main.cpp \
