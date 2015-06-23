@@ -1,6 +1,6 @@
 #include "labelprinterhandler.h"
 
-#include "proofhardware/labelprinter/labelprinter.h"
+#include "proofhardware/lprprinter/lprprinter.h"
 
 #include "proofservice_label_printer_global.h"
 
@@ -13,8 +13,8 @@ LabelPrinterHandler::LabelPrinterHandler(const QString &printerName, const QStri
 
 bool LabelPrinterHandler::printerStatus(QString *errorMessage)
 {
-    QScopedPointer<Proof::Hardware::LabelPrinter> printer(new Proof::Hardware::LabelPrinter(m_printerHost, m_printerName, true));
-    QObject::connect(printer.data(), &Proof::Hardware::LabelPrinter::errorOccurred,
+    QScopedPointer<Proof::Hardware::LprPrinter> printer(new Proof::Hardware::LprPrinter(m_printerHost, m_printerName, true));
+    QObject::connect(printer.data(), &Proof::Hardware::LprPrinter::errorOccurred,
                      printer.data(), [errorMessage](const QString &message) {
         qCDebug(proofServiceLabelPrinterLog) << message;
         if (errorMessage != nullptr)
@@ -25,12 +25,12 @@ bool LabelPrinterHandler::printerStatus(QString *errorMessage)
 
 bool LabelPrinterHandler::print(const QByteArray &label, QString *errorMessage)
 {
-    QScopedPointer<Proof::Hardware::LabelPrinter> printer(new Proof::Hardware::LabelPrinter(m_printerHost, m_printerName, true));
-    QObject::connect(printer.data(), &Proof::Hardware::LabelPrinter::errorOccurred,
+    QScopedPointer<Proof::Hardware::LprPrinter> printer(new Proof::Hardware::LprPrinter(m_printerHost, m_printerName, true));
+    QObject::connect(printer.data(), &Proof::Hardware::LprPrinter::errorOccurred,
                      printer.data(), [errorMessage](const QString &message) {
         qCDebug(proofServiceLabelPrinterLog) << message;
         if (errorMessage != nullptr)
             *errorMessage = message;
     });
-    return printer->printLabel(label);
+    return printer->printRawData(label);
 }
