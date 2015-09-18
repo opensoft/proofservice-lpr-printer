@@ -21,7 +21,7 @@ protected slots:
 
 private:
     void sendStatus(QTcpSocket *socket, bool isReady, const QString &reason);
-    void sendBadRequest(QTcpSocket *socket, const QString &reason);
+    void sendIncorrectBodyCode(QTcpSocket *socket);
 
 private:
     LabelPrinterHandler m_handler;
