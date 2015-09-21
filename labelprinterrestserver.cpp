@@ -1,5 +1,7 @@
 #include "labelprinterrestserver.h"
 
+#include "proofnetwork/labelprinter/errorcodes.h"
+
 #include <QJsonObject>
 #include <QJsonDocument>
 
@@ -25,15 +27,15 @@ void LabelPrinterRestServer::rest_post_LabelPrinter_Print(QTcpSocket *socket, co
     QJsonDocument doc = QJsonDocument::fromJson(body, &jsonError);
     if (jsonError.error == QJsonParseError::NoError) {
         if (!doc.isObject()) {
-            sendBadRequest(socket, "Can't find object in JSON");
+            sendIncorrectBodyCode(socket);
         } else {
             QJsonObject object = doc.object();
             if (!object.contains("data")) {
-                sendBadRequest(socket, "Can't find property \"data\" in JSON");
+                sendIncorrectBodyCode(socket);
             } else {
                 QJsonValue data = object.value("data");
                 if (!data.isString()) {
-                    sendBadRequest(socket, "Property \"data\" must be a string");
+                    sendIncorrectBodyCode(socket);
                 } else {
                     QString errorMessage;
                     bool result = m_handler.print(QByteArray::fromBase64(data.toString().toLocal8Bit()), &errorMessage);
@@ -42,7 +44,7 @@ void LabelPrinterRestServer::rest_post_LabelPrinter_Print(QTcpSocket *socket, co
             }
         }
     } else {
-        sendBadRequest(socket, jsonError.errorString());
+        sendIncorrectBodyCode(socket);
     }
 }
 
@@ -55,7 +57,7 @@ void LabelPrinterRestServer::sendStatus(QTcpSocket *socket, bool isReady, const 
     sendAnswer(socket, QJsonDocument(answer).toJson(QJsonDocument::Compact), "application/json", 200, "OK");
 }
 
-void LabelPrinterRestServer::sendBadRequest(QTcpSocket *socket, const QString &reason)
+void LabelPrinterRestServer::sendIncorrectBodyCode(QTcpSocket *socket)
 {
-    sendAnswer(socket, QByteArray(), QString(), 400, reason);
+    sendErrorCode(socket, 400, "Bad Request", Proof::NetworkServices::LabelPrinterErrors::IncorrectRequestBody);
 }
