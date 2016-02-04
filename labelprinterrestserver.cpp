@@ -1,6 +1,6 @@
 #include "labelprinterrestserver.h"
 
-#include "proofnetwork/labelprinter/errorcodes.h"
+#include "proofnetwork/labelprinter/proofnetworklabelprinter_global.h"
 
 #include <QJsonObject>
 #include <QJsonDocument>
@@ -59,5 +59,5 @@ void LabelPrinterRestServer::sendStatus(QTcpSocket *socket, bool isReady, const 
 
 void LabelPrinterRestServer::sendIncorrectBodyCode(QTcpSocket *socket)
 {
-    sendErrorCode(socket, 400, "Bad Request", Proof::NetworkServices::LabelPrinterErrors::IncorrectRequestBody);
+    sendErrorCode(socket, 400, "Bad Request", Proof::NetworkErrorCode::InvalidRequest);
 }
