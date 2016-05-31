@@ -3,7 +3,7 @@ Changelog
 
 ## Not Released
 #### Features
- * Add here
+ * Service now able to print files
 
 #### Bug Fixing
  * Add here
