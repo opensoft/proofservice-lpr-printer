@@ -19,7 +19,7 @@ LprPrinterHandler::LprPrinterHandler(const QString &printerName, const QString &
     });
 }
 
-void LprPrinterHandler::printerStatus(ResultCallback callback)
+void LprPrinterHandler::printerStatus(const ResultCallback &callback)
 {
     if (Proof::ProofObject::call(this, &LprPrinterHandler::printerStatus, callback))
         return;
@@ -30,7 +30,7 @@ void LprPrinterHandler::printerStatus(ResultCallback callback)
     callback(result, errorMessage);
 }
 
-void LprPrinterHandler::printRaw(const QByteArray &label, ResultCallback callback)
+void LprPrinterHandler::printRaw(const QByteArray &label, const ResultCallback &callback)
 {
     if (Proof::ProofObject::call(this, &LprPrinterHandler::printRaw, label, callback))
         return;
@@ -41,7 +41,7 @@ void LprPrinterHandler::printRaw(const QByteArray &label, ResultCallback callbac
     callback(result, errorMessage);
 }
 
-void LprPrinterHandler::printFile(QSharedPointer<QFile> file, unsigned int quantity, LprPrinterHandler::ResultCallback callback)
+void LprPrinterHandler::printFile(QSharedPointer<QFile> file, unsigned int quantity, const ResultCallback &callback)
 {
     if (Proof::ProofObject::call(this, &LprPrinterHandler::printFile, file, quantity, callback))
         return;

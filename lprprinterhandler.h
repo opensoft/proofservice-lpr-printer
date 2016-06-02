@@ -18,9 +18,9 @@ public:
 
     using ResultCallback = std::function<void (bool, const QString &)>;
 
-    void printerStatus(ResultCallback callback);
-    void printRaw(const QByteArray &label, ResultCallback callback);
-    void printFile(QSharedPointer<QFile> file, unsigned int quantity, ResultCallback callback);
+    void printerStatus(const ResultCallback &callback);
+    void printRaw(const QByteArray &label, const ResultCallback &callback);
+    void printFile(QSharedPointer<QFile> file, unsigned int quantity, const ResultCallback &callback);
 
     bool acceptsRaw() const;
     bool acceptsFiles() const;
