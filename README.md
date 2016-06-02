@@ -5,11 +5,6 @@ How-to use
 ----------
 Config changes are applied only at service restart. If service was installed using deb package then auto restarter should be enabled and simple kill -9 SERVICE_PID will work.
 
-There are 2 modes available (General\imposition_system):
-
- * profit (requires ProFIT)
- * files
-
 #### Common params
 ```ini
 [server]
