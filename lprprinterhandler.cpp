@@ -41,7 +41,7 @@ void LprPrinterHandler::printRaw(const QByteArray &label, const ResultCallback &
     callback(result, errorMessage);
 }
 
-void LprPrinterHandler::printFile(QSharedPointer<QFile> file, unsigned int quantity, const ResultCallback &callback)
+void LprPrinterHandler::printFile(const QSharedPointer<QFile> &file, unsigned int quantity, const ResultCallback &callback)
 {
     if (Proof::ProofObject::call(this, &LprPrinterHandler::printFile, file, quantity, callback))
         return;

@@ -20,7 +20,7 @@ public:
 
     void printerStatus(const ResultCallback &callback);
     void printRaw(const QByteArray &label, const ResultCallback &callback);
-    void printFile(QSharedPointer<QFile> file, unsigned int quantity, const ResultCallback &callback);
+    void printFile(const QSharedPointer<QFile> &file, unsigned int quantity, const ResultCallback &callback);
 
     bool acceptsRaw() const;
     bool acceptsFiles() const;
