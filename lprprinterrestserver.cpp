@@ -108,8 +108,8 @@ void LprPrinterRestServer::rest_get_Lpr_List(QTcpSocket *socket, const QStringLi
         const auto &handler = m_handlers[printerAlias];
         QJsonObject printerInfo;
         printerInfo["printer"] = printerAlias;
-        printerInfo["access_raw"] = handler->acceptsRaw();
-        printerInfo["access_files"] = handler->acceptsFiles();
+        printerInfo["accepts_raw"] = handler->acceptsRaw();
+        printerInfo["accepts_files"] = handler->acceptsFiles();
         answer << printerInfo;
     }
     sendAnswer(socket, QJsonDocument(answer).toJson(QJsonDocument::Compact), "application/json", 200, "OK");
