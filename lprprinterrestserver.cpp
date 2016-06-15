@@ -2,7 +2,7 @@
 
 #include "proofservice_lpr_printer_global.h"
 
-#include "proofnetwork/labelprinter/proofnetworklabelprinter_global.h"
+#include "proofnetwork/lprprinter/proofnetworklprprinter_global.h"
 
 #include <QJsonObject>
 #include <QJsonArray>
