@@ -1,12 +1,12 @@
 #!/bin/bash
 
-PACKAGE_NAME="proofservice-label-printer"
+PACKAGE_NAME="proofservice-lpr-printer"
 PROJECT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-PROJECT_FILE="$PROJECT_DIR/proofservice-label-printer.pro"
+PROJECT_FILE="$PROJECT_DIR/proofservice-lpr-printer.pro"
 VERSION="$(grep -e "VERSION\ =" $PROJECT_FILE | sed 's/^VERSION\ =\ \(.*\)/\1/')"
 MAINTAINER="Dmitry Gurevich <dmitry.gurevich@tech-corps.com>"
-DESCRIPTION="Proof-based service for remote labels printing.
- Proof-based service for remote labels printing.
+DESCRIPTION="Proof-based service for remote printing using lpr.
+ Proof-based service for remote printing using lpr.
 "
 
 PREBUILD="
