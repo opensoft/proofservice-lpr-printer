@@ -1,7 +1,7 @@
 TARGET = proofservice-lpr-printer
 TEMPLATE = app
 
-VERSION = 0.15.4.10
+VERSION = 0.16.8.16
 
 CONFIG += proofhardwarelprprinter
 
