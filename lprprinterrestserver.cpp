@@ -24,7 +24,6 @@ LprPrinterRestServer::LprPrinterRestServer(int port, const QList<PrinterInfo> &p
         m_workingThreads << thread;
         m_handlers[printer.alias] = handler;
     }
-    setServiceVersion(APP_VERSION);
 }
 
 LprPrinterRestServer::~LprPrinterRestServer()

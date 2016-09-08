@@ -10,7 +10,7 @@ Q_LOGGING_CATEGORY(proofServiceLprPrinterLog, "proofservices.lpr-printer")
 
 int main(int argc, char *argv[])
 {
-    Proof::CoreApplication a(argc, argv, "Opensoft", "proofservice-lpr-printer");
+    Proof::CoreApplication a(argc, argv, "Opensoft", "proofservice-lpr-printer", APP_VERSION);
 
     Proof::SettingsGroup *serverGroup = a.settings()->group("server", Proof::Settings::NotFoundPolicy::Add);
 
