@@ -3,7 +3,7 @@ Changelog
 
 ## Not Released
 #### Features
- * --
+ * Auto updates support
 
 #### Bug Fixing
  * --

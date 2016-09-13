@@ -1,10 +1,13 @@
 #include "proofservice_lpr_printer_global.h"
+#include "lprprinterrestserver.h"
 
 #include "proofcore/coreapplication.h"
 #include "proofcore/settings.h"
 #include "proofcore/settingsgroup.h"
 
-#include "lprprinterrestserver.h"
+#include "proofcore/updatemanager.h"
+
+#include <QTimer>
 
 Q_LOGGING_CATEGORY(proofServiceLprPrinterLog, "proofservices.lpr-printer")
 
@@ -40,6 +43,9 @@ int main(int argc, char *argv[])
 
     LprPrinterRestServer server(serverPort, printerInfos, defaultPrinter);
     server.startListen();
+
+    QObject::connect(a.updateManager(), &Proof::UpdateManager::updateSucceeded, &a, &QCoreApplication::quit);
+    QTimer::singleShot(1, &a, &Proof::CoreApplication::postInit);
 
     return a.exec();
 }
