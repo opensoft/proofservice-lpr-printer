@@ -12,7 +12,7 @@
 
 LprPrinterRestServer::LprPrinterRestServer(int port, const QList<PrinterInfo> &printers,
                                            const QString &defaultPrinter, QObject *parent)
-    : Proof::AbstractRestServer("", port, Proof::RestAuthType::NoAuth, parent),
+    : Proof::AbstractRestServer(port, parent),
       m_defaultPrinter(defaultPrinter)
 {
     for (const PrinterInfo &printer : printers) {
