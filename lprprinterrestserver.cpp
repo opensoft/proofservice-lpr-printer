@@ -11,8 +11,8 @@
 #include <QTemporaryFile>
 
 LprPrinterRestServer::LprPrinterRestServer(int port, const QList<PrinterInfo> &printers,
-                                           const QString &defaultPrinter, QObject *parent)
-    : Proof::AbstractRestServer(port, parent),
+                                           const QString &defaultPrinter)
+    : Proof::AbstractRestServer(port),
       m_defaultPrinter(defaultPrinter)
 {
     for (const PrinterInfo &printer : printers) {

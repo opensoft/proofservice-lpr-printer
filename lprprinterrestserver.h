@@ -25,7 +25,7 @@ class LprPrinterRestServer : public Proof::AbstractRestServer
 {
     Q_OBJECT
 public:
-    explicit LprPrinterRestServer(int port, const QList<PrinterInfo> &printers, const QString &defaultPrinter, QObject *parent = 0);
+    explicit LprPrinterRestServer(int port, const QList<PrinterInfo> &printers, const QString &defaultPrinter);
     ~LprPrinterRestServer() override;
 
 protected slots:
