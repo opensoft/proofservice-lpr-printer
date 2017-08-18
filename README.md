@@ -13,7 +13,7 @@ port=8090
 # printer group names via | and also alias through which the printer is available by "printer" parameter in the URL
 printers=zebra_ups|hp_net
 # alias of default printer if "printer" parameter is not specified in the URL
-default_printer=z_ups
+default_printer=zebra_ups
 
 [zebra_ups]
 # printer name for lpq, empty for default
