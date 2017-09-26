@@ -3,6 +3,13 @@ Changelog
 
 ## Not Released
 #### Features
+ * --
+
+#### Bug Fixing
+ * --
+
+## 0.17.9.26
+#### Features
  * Auto updates support
 
 #### Bug Fixing
