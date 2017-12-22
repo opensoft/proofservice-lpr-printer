@@ -8,6 +8,9 @@ Changelog
 #### Bug Fixing
  * --
 
+## 0.17.12.25
+Proof-related release
+
 ## 0.17.9.26
 #### Features
  * Auto updates support
