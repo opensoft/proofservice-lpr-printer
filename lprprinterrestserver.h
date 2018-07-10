@@ -1,14 +1,14 @@
 #ifndef LPRPRINTERRESTSERVER_H
 #define LPRPRINTERRESTSERVER_H
 
-#include "proofnetwork/abstractrestserver.h"
-
 #include "lprprinterhandler.h"
 
-#include <QUrlQuery>
+#include "proofnetwork/abstractrestserver.h"
+
 #include <QList>
 #include <QMap>
 #include <QThread>
+#include <QUrlQuery>
 
 #include <functional>
 
@@ -25,7 +25,7 @@ class LprPrinterRestServer : public Proof::AbstractRestServer
 {
     Q_OBJECT
 public:
-    explicit LprPrinterRestServer(int port, const QList<PrinterInfo> &printers, const QString &defaultPrinter);
+    explicit LprPrinterRestServer(quint16 port, const QList<PrinterInfo> &printers, const QString &defaultPrinter);
     ~LprPrinterRestServer() override;
 
 protected slots:

@@ -1,10 +1,9 @@
-#include "proofservice_lpr_printer_global.h"
 #include "lprprinterrestserver.h"
+#include "proofservice_lpr_printer_global.h"
 
 #include "proofcore/coreapplication.h"
 #include "proofcore/settings.h"
 #include "proofcore/settingsgroup.h"
-
 #include "proofcore/updatemanager.h"
 
 #include <QTimer>
@@ -19,11 +18,13 @@ int main(int argc, char *argv[])
 
     int serverPort = serverGroup->value("port", 8090, Proof::Settings::NotFoundPolicy::Add).toInt();
     QStringList printerSections = serverGroup->value("printers", "", Proof::Settings::NotFoundPolicy::Add)
-            .toString().split('|', QString::SkipEmptyParts);
+                                      .toString()
+                                      .split('|', QString::SkipEmptyParts);
     QString defaultPrinter = serverGroup->value("default_printer", "", Proof::Settings::NotFoundPolicy::Add).toString();
     QList<PrinterInfo> printerInfos;
     for (const QString &printerSection : printerSections) {
-        Proof::SettingsGroup *printerGroup = a.settings()->group(printerSection.trimmed(), Proof::Settings::NotFoundPolicy::Add);
+        Proof::SettingsGroup *printerGroup = a.settings()->group(printerSection.trimmed(),
+                                                                 Proof::Settings::NotFoundPolicy::Add);
         QString name = printerGroup->value("name", "", Proof::Settings::NotFoundPolicy::Add).toString();
         QString host = printerGroup->value("host", "", Proof::Settings::NotFoundPolicy::Add).toString();
         bool acceptsRaw = printerGroup->value("accepts_raw", false, Proof::Settings::NotFoundPolicy::Add).toBool();

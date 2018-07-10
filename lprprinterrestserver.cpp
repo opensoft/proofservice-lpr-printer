@@ -4,20 +4,18 @@
 
 #include "proofnetwork/lprprinter/proofnetworklprprinter_global.h"
 
-#include <QJsonObject>
 #include <QJsonArray>
 #include <QJsonDocument>
+#include <QJsonObject>
 #include <QTcpSocket>
 #include <QTemporaryFile>
 
-LprPrinterRestServer::LprPrinterRestServer(int port, const QList<PrinterInfo> &printers,
-                                           const QString &defaultPrinter)
-    : Proof::AbstractRestServer(port),
-      m_defaultPrinter(defaultPrinter)
+LprPrinterRestServer::LprPrinterRestServer(quint16 port, const QList<PrinterInfo> &printers, const QString &defaultPrinter)
+    : Proof::AbstractRestServer(port), m_defaultPrinter(defaultPrinter)
 {
     for (const PrinterInfo &printer : printers) {
-        auto handler = QSharedPointer<LprPrinterHandler>::create(printer.name, printer.host,
-                                                                 printer.acceptsRaw, printer.acceptsFiles);
+        auto handler = QSharedPointer<LprPrinterHandler>::create(printer.name, printer.host, printer.acceptsRaw,
+                                                                 printer.acceptsFiles);
         auto thread = QSharedPointer<QThread>::create();
         handler->moveToThread(thread.data());
         thread->start();
@@ -76,8 +74,7 @@ void LprPrinterRestServer::rest_post_Lpr_Print(QTcpSocket *socket, const QString
         return;
     }
 
-    unsigned int numCopies = queryParams.hasQueryItem("copies")
-            ? queryParams.queryItemValue("copies").toUInt() : 1;
+    unsigned int numCopies = queryParams.hasQueryItem("copies") ? queryParams.queryItemValue("copies").toUInt() : 1;
 
     auto file = QSharedPointer<QTemporaryFile>::create();
     if (!file->open()) {
@@ -140,7 +137,5 @@ QSharedPointer<LprPrinterHandler> LprPrinterRestServer::getPrinterHandler(QTcpSo
 
 LprPrinterHandler::ResultCallback LprPrinterRestServer::makeCallback(QTcpSocket *socket)
 {
-    return [socket, this](bool result, const QString &errorMessage) {
-        sendStatus(socket, result, errorMessage);
-    };
+    return [socket, this](bool result, const QString &errorMessage) { sendStatus(socket, result, errorMessage); };
 }

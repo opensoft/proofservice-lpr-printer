@@ -14,9 +14,9 @@ LprPrinterHandler::LprPrinterHandler(const QString &printerName, const QString &
 {
     connect(m_printer, &Proof::Hardware::LprPrinter::errorOccurred, this,
             [this](long moduleCode, long errorCode, const QString &message, bool) {
-        qCWarning(proofServiceLprPrinterLog) << moduleCode << errorCode << message;
-        m_lastError = message;
-    });
+                qCWarning(proofServiceLprPrinterLog) << moduleCode << errorCode << message;
+                m_lastError = message;
+            });
 }
 
 void LprPrinterHandler::printerStatus(const ResultCallback &callback)

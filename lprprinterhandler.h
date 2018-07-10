@@ -3,9 +3,9 @@
 
 #include "proofhardware/lprprinter/lprprinter.h"
 
+#include <QFile>
 #include <QObject>
 #include <QString>
-#include <QFile>
 
 #include <functional>
 
@@ -16,7 +16,7 @@ public:
     explicit LprPrinterHandler(const QString &printerName, const QString &printerHost, bool acceptsRaw,
                                bool acceptsFiles, QObject *parent = nullptr);
 
-    using ResultCallback = std::function<void (bool, const QString &)>;
+    using ResultCallback = std::function<void(bool, const QString &)>;
 
     void printerStatus(const ResultCallback &callback);
     void printRaw(const QByteArray &label, const ResultCallback &callback);
