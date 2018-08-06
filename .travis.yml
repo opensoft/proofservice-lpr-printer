@@ -7,12 +7,6 @@ services:
 git:
   depth: 1
 
-cache:
-  directories:
-    - $HOME/builder_ccache
-    - $HOME/full_build
-    - $HOME/proof-bin
-
 env:
   global:
     - TARGET_NAME=`echo "$TRAVIS_REPO_SLUG" | sed -r 's|(.*/)?(.+)|\2|'`
@@ -21,31 +15,35 @@ env:
     - secure: jDtfVAPJtMnrSnEhzcvFKtPKgykFbCq3a4Vg6YbsC3zcyOm7io1Y5LGJRaL8+wYg9enpffSz+nZSbxPmJSrC/gf4tcyDKmyST8wWVYLT5i0FzP7RoI5y9gfazdTenaAZOkKauFa4XY36qhC2YCxqdbnHtxRjO59uu9FoMfUHKwo=
     - secure: guj8ClLTeuhJenL0QDaJ7L8dFIoYMI6f36yk/YtKDyDOXisPhRL6Qlbe6MYRxhglozEqLawrivF4fxazUAeWSRq6dk73Tqpg/pNLWLFlohAgLUI+pHp3b45utwH1ootyub/IVtMfRlgkfCiL9WqZWR4vMcz8+3U/cjDrkwQISpE=
 
+cache:
+  directories:
+    - $HOME/builder_ccache
+    - $HOME/full_build
+    - $HOME/proof-bin
+
 before_install: export -f travis_fold && export -f travis_time_start && export -f travis_time_finish && export -f travis_nanoseconds
 
 jobs:
   include:
     - &pre-compile
       stage: Pre compilation
-      name: Proof installation (non-release)
+      name: Linux proof installation (non-release)
       if: type != pull_request AND tag IS blank AND branch != master
       before_script: pip install --user awscli
       script:
-        - cd $HOME
-        - aws s3 cp s3://proof.travis.builds/$TRAVIS_BRANCH/proof-bin-debian9.tar.gz proof-bin.tar.gz ||
-          aws s3 cp s3://proof.travis.builds/develop/proof-bin-debian9.tar.gz proof-bin.tar.gz || travis_terminate 1
-        - rm -rf proof-bin && tar -xzf proof-bin.tar.gz
+        - aws s3 cp s3://proof.travis.builds/$TRAVIS_BRANCH/proof-bin-debian9.tar.gz $HOME/proof-bin.tar.gz ||
+          aws s3 cp s3://proof.travis.builds/develop/proof-bin-debian9.tar.gz $HOME/proof-bin.tar.gz || travis_terminate 1
+        - cd $HOME && rm -rf proof-bin && tar -xzf proof-bin.tar.gz
     - <<: *pre-compile
-      name: Proof installation (release)
+      name: Linux proof installation (release)
       if: type != pull_request AND (tag IS present OR branch = master)
       before_script: pip install --user awscli
       script:
-        - cd $HOME
-        - aws s3 cp s3://proof.travis.builds/__releases/proof/$PROOF_VERSION/proof-bin-debian9.tar.gz proof-bin.tar.gz || travis_terminate 1
-        - rm -rf proof-bin && tar -xzf proof-bin.tar.gz
+        - aws s3 cp s3://proof.travis.builds/__releases/proof/$PROOF_VERSION/proof-bin-debian9.tar.gz $HOME/proof-bin.tar.gz || travis_terminate 1
+        - cd $HOME && rm -rf proof-bin && tar -xzf proof-bin.tar.gz
     - &compile
       stage: compilation and static checks
-      name: Compilation (with ccache)
+      name: Compilation (Debian9/clang/ccache)
       script: $HOME/proof-bin/dev-tools/travis/apps/compile/linux_compile.sh
     - <<: *compile
       name: Code style check with clang-format
@@ -62,3 +60,4 @@ jobs:
       name: Debian package upload to S3 (release)
       if: type != pull_request AND tag IS present
       script: $HOME/proof-bin/dev-tools/travis/apps/post-compile/deb_upload.sh release
+
