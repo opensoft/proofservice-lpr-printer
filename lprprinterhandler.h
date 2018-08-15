@@ -1,7 +1,7 @@
 #ifndef LPRPRINTERHANDLER_H
 #define LPRPRINTERHANDLER_H
 
-#include "proofhardware/lprprinter/lprprinter.h"
+#include "proofutils/lprprinter.h"
 
 #include <QFile>
 #include <QObject>
