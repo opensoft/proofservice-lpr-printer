@@ -39,7 +39,7 @@ jobs:
       if: type != pull_request AND (tag IS present OR branch = master)
       before_script: pip install --user awscli
       script:
-        - aws s3 cp s3://proof.travis.builds/__releases/proof/$PROOF_VERSION/proof-bin-debian9.tar.gz $HOME/proof-bin.tar.gz || travis_terminate 1
+        - aws s3 cp s3://proof.travis.builds/__releases/proof/raw-bin/$PROOF_VERSION/proof-bin-debian9.tar.gz $HOME/proof-bin.tar.gz || travis_terminate 1
         - cd $HOME && rm -rf proof-bin && tar -xzf proof-bin.tar.gz
     - &compile
       stage: compilation and static checks
@@ -53,11 +53,7 @@ jobs:
       script: $HOME/proof-bin/dev-tools/travis/apps/compile/clazy_check.sh
     - &post-compile
       stage: Post compilation
-      name: Debian package upload to S3 (non-release)
-      if: type != pull_request AND tag IS blank AND branch != master
+      name: Debian package upload to S3
+      if: type != pull_request AND branch != master
       script: $HOME/proof-bin/dev-tools/travis/apps/post-compile/deb_upload.sh
-    - <<: *post-compile
-      name: Debian package upload to S3 (release)
-      if: type != pull_request AND tag IS present
-      script: $HOME/proof-bin/dev-tools/travis/apps/post-compile/deb_upload.sh release
 
