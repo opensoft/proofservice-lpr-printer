@@ -13,6 +13,7 @@
 LprPrinterRestServer::LprPrinterRestServer(quint16 port, const QList<PrinterInfo> &printers, const QString &defaultPrinter)
     : Proof::AbstractRestServer(port), m_defaultPrinter(defaultPrinter)
 {
+    m_workingThreads.reserve(printers.count());
     for (const PrinterInfo &printer : printers) {
         auto handler = QSharedPointer<LprPrinterHandler>::create(printer.name, printer.host, printer.acceptsRaw,
                                                                  printer.acceptsFiles);
@@ -26,7 +27,7 @@ LprPrinterRestServer::LprPrinterRestServer(quint16 port, const QList<PrinterInfo
 
 LprPrinterRestServer::~LprPrinterRestServer()
 {
-    for (const auto &thread : m_workingThreads)
+    for (const auto &thread : qAsConst(m_workingThreads))
         thread->wait();
 }
 
@@ -101,10 +102,10 @@ void LprPrinterRestServer::rest_get_Lpr_List(QTcpSocket *socket, const QStringLi
                                              const QUrlQuery &, const QByteArray &)
 {
     QJsonArray answer;
-    for (const QString &printerAlias : m_handlers.keys()) {
-        const auto &handler = m_handlers[printerAlias];
+    for (auto it = m_handlers.constBegin(); it != m_handlers.constEnd(); ++it) {
+        const auto handler = it.value();
         QJsonObject printerInfo;
-        printerInfo["printer"] = printerAlias;
+        printerInfo["printer"] = it.key();
         printerInfo["accepts_raw"] = handler->acceptsRaw();
         printerInfo["accepts_files"] = handler->acceptsFiles();
         answer << printerInfo;

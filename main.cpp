@@ -22,6 +22,7 @@ int main(int argc, char *argv[])
                                       .split('|', QString::SkipEmptyParts);
     QString defaultPrinter = serverGroup->value("default_printer", "", Proof::Settings::NotFoundPolicy::Add).toString();
     QList<PrinterInfo> printerInfos;
+    printerInfos.reserve(printerSections.count());
     for (const QString &printerSection : printerSections) {
         Proof::SettingsGroup *printerGroup = a.settings()->group(printerSection.trimmed(),
                                                                  Proof::Settings::NotFoundPolicy::Add);
