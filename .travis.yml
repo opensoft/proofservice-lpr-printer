@@ -4,9 +4,6 @@ language: cpp
 services:
   - docker
 
-git:
-  depth: 1
-
 env:
   global:
     - TARGET_NAME=`echo "$TRAVIS_REPO_SLUG" | sed -r 's|(.*/)?(.+)|\2|'`
