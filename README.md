@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/opensoft/proofservice-lpr-printer.svg?token=rjKq7aueGr7hgysP2ESt&branch=develop)](https://travis-ci.com/opensoft/proofservice-lpr-printer)
+[![Build Status](https://travis-ci.com/opensoft/proofservice-lpr-printer.svg&branch=develop)](https://travis-ci.com/opensoft/proofservice-lpr-printer)
 
 # ProofService-Lpr-Printer
 Proof-based service for remote printing
