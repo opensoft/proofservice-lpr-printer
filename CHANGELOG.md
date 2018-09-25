@@ -8,6 +8,9 @@ Changelog
 #### Bug Fixing
  * --
 
+## 0.18.9.23
+Proof-related release
+
 ## 0.17.12.25
 Proof-related release
 
