@@ -43,16 +43,19 @@ LprPrinterRestServer::LprPrinterRestServer() : Proof::AbstractRestServer()
     setPort(serverGroup->value("port", 8090, Settings::NotFoundPolicy::Add).toInt());
     QStringList printerSections =
         serverGroup->value("printers", "", Settings::NotFoundPolicy::Add).toString().split('|', QString::SkipEmptyParts);
-    for (const QString &printerSection : printerSections) {
-        const auto printerGroup = proofApp->settings()->group(printerSection.trimmed(), Settings::NotFoundPolicy::Add);
-        QString name = printerGroup->value("name", "", Settings::NotFoundPolicy::Add).toString();
-        QString host = printerGroup->value("host", "", Settings::NotFoundPolicy::Add).toString();
-        bool acceptsRaw = printerGroup->value("accepts_raw", false, Settings::NotFoundPolicy::Add).toBool();
-        bool acceptsFiles = printerGroup->value("accepts_files", false, Settings::NotFoundPolicy::Add).toBool();
-        m_infos[printerGroup->name()] = PrinterInfo{new Proof::Hardware::LprPrinter(host, name, true, this), acceptsRaw,
-                                                    acceptsFiles};
-    }
-
+    m_infos = algorithms::map(
+        printerSections,
+        [this](const QString &printerSection) {
+            const auto printerGroup = proofApp->settings()->group(printerSection.trimmed(),
+                                                                  Settings::NotFoundPolicy::Add);
+            QString name = printerGroup->value("name", "", Settings::NotFoundPolicy::Add).toString();
+            QString host = printerGroup->value("host", "", Settings::NotFoundPolicy::Add).toString();
+            bool acceptsRaw = printerGroup->value("accepts_raw", false, Settings::NotFoundPolicy::Add).toBool();
+            bool acceptsFiles = printerGroup->value("accepts_files", false, Settings::NotFoundPolicy::Add).toBool();
+            return qMakePair(printerGroup->name(), PrinterInfo{new Proof::Hardware::LprPrinter(host, name, true, this),
+                                                               acceptsRaw, acceptsFiles});
+        },
+        QMap<QString, PrinterInfo>());
     m_defaultPrinter = serverGroup->value("default_printer", "", Settings::NotFoundPolicy::Add).toString();
     if (m_defaultPrinter.isEmpty()) {
         m_defaultPrinter = m_infos.isEmpty() ? QString() : m_infos.firstKey();
