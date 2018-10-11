@@ -52,9 +52,8 @@ LprPrinterRestServer::LprPrinterRestServer() : Proof::AbstractRestServer()
             QString host = printerGroup->value("host", "", Settings::NotFoundPolicy::Add).toString();
             bool acceptsRaw = printerGroup->value("accepts_raw", false, Settings::NotFoundPolicy::Add).toBool();
             bool acceptsFiles = printerGroup->value("accepts_files", false, Settings::NotFoundPolicy::Add).toBool();
-            return qMakePair(printerGroup->name(),
-                             PrinterInfo{new Proof::Hardware::LprPrinter(host, name, true, proofApp), acceptsRaw,
-                                         acceptsFiles});
+            auto handler = new Proof::Hardware::LprPrinter(host, name, true, proofApp);
+            return qMakePair(printerGroup->name(), PrinterInfo{handler, acceptsRaw, acceptsFiles});
         },
         QMap<QString, PrinterInfo>());
     m_defaultPrinter = serverGroup->value("default_printer", "", Settings::NotFoundPolicy::Add).toString();
