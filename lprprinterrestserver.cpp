@@ -45,15 +45,16 @@ LprPrinterRestServer::LprPrinterRestServer() : Proof::AbstractRestServer()
         serverGroup->value("printers", "", Settings::NotFoundPolicy::Add).toString().split('|', QString::SkipEmptyParts);
     m_infos = algorithms::map(
         printerSections,
-        [this](const QString &printerSection) {
+        [](const QString &printerSection) {
             const auto printerGroup = proofApp->settings()->group(printerSection.trimmed(),
                                                                   Settings::NotFoundPolicy::Add);
             QString name = printerGroup->value("name", "", Settings::NotFoundPolicy::Add).toString();
             QString host = printerGroup->value("host", "", Settings::NotFoundPolicy::Add).toString();
             bool acceptsRaw = printerGroup->value("accepts_raw", false, Settings::NotFoundPolicy::Add).toBool();
             bool acceptsFiles = printerGroup->value("accepts_files", false, Settings::NotFoundPolicy::Add).toBool();
-            return qMakePair(printerGroup->name(), PrinterInfo{new Proof::Hardware::LprPrinter(host, name, true, this),
-                                                               acceptsRaw, acceptsFiles});
+            return qMakePair(printerGroup->name(),
+                             PrinterInfo{new Proof::Hardware::LprPrinter(host, name, true, proofApp), acceptsRaw,
+                                         acceptsFiles});
         },
         QMap<QString, PrinterInfo>());
     m_defaultPrinter = serverGroup->value("default_printer", "", Settings::NotFoundPolicy::Add).toString();

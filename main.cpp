@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
 
     LprPrinterRestServer server;
     if (!server.printersCount()) {
-        qCCritical(proofServiceLprPrinterLog) << "Printers list are empty!";
+        qCCritical(proofServiceLprPrinterLog) << "Printers list is empty!";
         return 0;
     }
     server.startListen();
