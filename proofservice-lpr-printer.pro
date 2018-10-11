@@ -7,12 +7,10 @@ CONFIG += proofutils
 
 SOURCES += \
     main.cpp \
-    lprprinterrestserver.cpp \
-    lprprinterhandler.cpp
+    lprprinterrestserver.cpp
 
 HEADERS += \
     lprprinterrestserver.h \
-    lprprinterhandler.h \
     proofservice_lpr_printer_global.h
 
 DISTFILES += \
