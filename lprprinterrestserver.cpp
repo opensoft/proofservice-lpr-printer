@@ -40,7 +40,7 @@ LprPrinterRestServer::LprPrinterRestServer() : Proof::AbstractRestServer()
 {
     SettingsGroup *serverGroup = proofApp->settings()->group("server", Settings::NotFoundPolicy::Add);
 
-    setPort(serverGroup->value("port", 8090, Settings::NotFoundPolicy::Add).toInt());
+    setPort(static_cast<quint16>(serverGroup->value("port", 8090, Settings::NotFoundPolicy::Add).toInt()));
     QStringList printerSections =
         serverGroup->value("printers", "", Settings::NotFoundPolicy::Add).toString().split('|', QString::SkipEmptyParts);
     m_infos = algorithms::map(
@@ -89,7 +89,7 @@ void LprPrinterRestServer::rest_post_Lpr_PrintRaw(QTcpSocket *socket, const QStr
         if (!data.isString())
             sendErrorCode(socket, 400, "Bad Request", Proof::NetworkErrorCode::InvalidRequest);
         else
-            decorateFuture(socket, info.handler->printRawData(QByteArray::fromBase64(data.toString().toLatin1())));
+            decorateFuture(socket, info.printer->printRawData(QByteArray::fromBase64(data.toString().toLatin1())));
     } else {
         sendErrorCode(socket, 400, "Bad Request", Proof::NetworkErrorCode::InvalidRequest);
     }
@@ -120,7 +120,7 @@ void LprPrinterRestServer::rest_post_Lpr_Print(QTcpSocket *socket, const QString
     file->write(body);
     file->flush();
 
-    decorateFuture(socket, info.handler->printFile(file->fileName(), numCopies))->onSuccess([file](bool) {});
+    decorateFuture(socket, info.printer->printFile(file->fileName(), numCopies))->onSuccess([file](bool) {});
 }
 
 void LprPrinterRestServer::rest_get_Lpr_Status(QTcpSocket *socket, const QStringList &, const QStringList &,
@@ -133,7 +133,7 @@ void LprPrinterRestServer::rest_get_Lpr_Status(QTcpSocket *socket, const QString
     }
 
     const auto info = m_infos.value(printerAlias);
-    decorateFuture(socket, info.handler->printerIsReady());
+    decorateFuture(socket, info.printer->printerIsReady());
 }
 
 void LprPrinterRestServer::rest_get_Lpr_List(QTcpSocket *socket, const QStringList &, const QStringList &,

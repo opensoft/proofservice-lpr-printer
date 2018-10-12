@@ -38,7 +38,7 @@
 
 struct PrinterInfo
 {
-    Proof::Hardware::LprPrinter *handler;
+    Proof::Hardware::LprPrinter *printer;
     bool acceptsRaw;
     bool acceptsFiles;
 };
@@ -66,7 +66,6 @@ private:
 
 private:
     QMap<QString, PrinterInfo> m_infos;
-    QMap<QString, Proof::Hardware::LprPrinter *> m_printers;
     QString m_defaultPrinter;
 };
 
