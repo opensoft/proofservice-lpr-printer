@@ -6,7 +6,7 @@ Changelog
  * --
 
 #### Bug Fixing
- * --
+ * Proper notification about errors from Proof::Hardware::LprPrinter
 
 ## 0.18.9.23
 Proof-related release

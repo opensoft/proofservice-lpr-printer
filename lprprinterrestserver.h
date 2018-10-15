@@ -25,22 +25,20 @@
 #ifndef LPRPRINTERRESTSERVER_H
 #define LPRPRINTERRESTSERVER_H
 
-#include "lprprinterhandler.h"
+#include "proofseed/planting.h"
 
 #include "proofnetwork/abstractrestserver.h"
 
-#include <QList>
+#include "proofutils/lprprinter.h"
+
 #include <QMap>
-#include <QThread>
 #include <QUrlQuery>
 
 #include <functional>
 
 struct PrinterInfo
 {
-    QString alias;
-    QString name;
-    QString host;
+    Proof::Hardware::LprPrinter *printer;
     bool acceptsRaw;
     bool acceptsFiles;
 };
@@ -49,8 +47,9 @@ class LprPrinterRestServer : public Proof::AbstractRestServer
 {
     Q_OBJECT
 public:
-    explicit LprPrinterRestServer(quint16 port, const QList<PrinterInfo> &printers, const QString &defaultPrinter);
-    ~LprPrinterRestServer() override;
+    explicit LprPrinterRestServer();
+
+    int printersCount() const;
 
 protected slots:
     void rest_post_Lpr_PrintRaw(QTcpSocket *socket, const QStringList &headers, const QStringList &methodVariableParts,
@@ -63,14 +62,10 @@ protected slots:
                            const QUrlQuery &queryParams, const QByteArray &body);
 
 private:
-    void sendStatus(QTcpSocket *socket, bool isReady, const QString &reason);
-    void sendIncorrectBodyCode(QTcpSocket *socket);
-    QSharedPointer<LprPrinterHandler> getPrinterHandler(QTcpSocket *socket, const QUrlQuery &queryParams);
-    LprPrinterHandler::ResultCallback makeCallback(QTcpSocket *socket);
+    FutureSP<bool> decorateFuture(QTcpSocket *socket, const FutureSP<bool> &f);
 
 private:
-    QMap<QString, QSharedPointer<LprPrinterHandler>> m_handlers;
-    QList<QSharedPointer<QThread>> m_workingThreads;
+    QMap<QString, PrinterInfo> m_infos;
     QString m_defaultPrinter;
 };
 
