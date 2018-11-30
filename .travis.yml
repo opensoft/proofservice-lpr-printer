@@ -22,8 +22,8 @@ before_install: export -f travis_fold && export -f travis_time_start && export -
 
 jobs:
   include:
-    - &pre-compile
-      stage: Pre compilation
+    - &proof-install
+      stage: proof install
       name: Linux proof installation (non-release)
       if: type != pull_request AND tag IS blank AND branch != master
       before_script: pip install --user awscli
@@ -31,7 +31,7 @@ jobs:
         - aws s3 cp s3://proof.travis.builds/$TRAVIS_BRANCH/raw-bin/proof-bin-debian9.tar.gz $HOME/proof-bin.tar.gz ||
           aws s3 cp s3://proof.travis.builds/develop/raw-bin/proof-bin-debian9.tar.gz $HOME/proof-bin.tar.gz || travis_terminate 1
         - cd $HOME && rm -rf proof-bin && tar -xzf proof-bin.tar.gz
-    - <<: *pre-compile
+    - <<: *proof-install
       name: Linux proof installation (release)
       if: type != pull_request AND (tag IS present OR branch = master)
       before_script: pip install --user awscli
