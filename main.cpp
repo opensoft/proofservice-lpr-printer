@@ -28,7 +28,6 @@
 #include "proofcore/coreapplication.h"
 #include "proofcore/settings.h"
 #include "proofcore/settingsgroup.h"
-#include "proofcore/updatemanager.h"
 
 #include <QTimer>
 
@@ -45,8 +44,6 @@ int main(int argc, char *argv[])
     }
     server.startListen();
 
-    QObject::connect(a.updateManager(), &Proof::UpdateManager::updateSucceeded, &a, &QCoreApplication::quit);
     QTimer::singleShot(1, &a, &Proof::CoreApplication::postInit);
-
     return a.exec();
 }
