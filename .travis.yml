@@ -48,6 +48,15 @@ jobs:
     - <<: *compile
       name: Static code analysis with clazy
       script: $HOME/proof-bin/dev-tools/travis/apps/compile/clazy_check.sh
+    - <<: *compile
+      name: Clang-Tidy (clang-analyzer)
+      script: $HOME/proof-bin/dev-tools/travis/apps/compile/clang-tidy_check.sh clang_analyzer
+    - <<: *compile
+      name: Clang-Tidy (bugprone, cert, cppcoreguidelines, performance)
+      script: $HOME/proof-bin/dev-tools/travis/apps/compile/clang-tidy_check.sh core
+    - <<: *compile
+      name: Clang-Tidy (google, hicpp, llvm, misc, modernize, readability)
+      script: $HOME/proof-bin/dev-tools/travis/apps/compile/clang-tidy_check.sh misc
     - &post-compile
       stage: Post compilation
       name: Debian package upload to S3
