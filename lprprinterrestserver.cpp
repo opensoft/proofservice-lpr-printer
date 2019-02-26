@@ -120,7 +120,7 @@ void LprPrinterRestServer::rest_post_Lpr_Print(QTcpSocket *socket, const QString
     file->write(body);
     file->flush();
 
-    decorateFuture(socket, info.printer->printFile(file->fileName(), numCopies))->onSuccess([file](bool) {});
+    decorateFuture(socket, info.printer->printFile(file->fileName(), numCopies)).onSuccess([file](bool) {});
 }
 
 void LprPrinterRestServer::rest_get_Lpr_Status(QTcpSocket *socket, const QStringList &, const QStringList &,
@@ -151,15 +151,15 @@ void LprPrinterRestServer::rest_get_Lpr_List(QTcpSocket *socket, const QStringLi
     sendAnswer(socket, QJsonDocument(answer).toJson(QJsonDocument::Compact), "application/json", 200, "OK");
 }
 
-FutureSP<bool> LprPrinterRestServer::decorateFuture(QTcpSocket *socket, const FutureSP<bool> &f)
+Future<bool> LprPrinterRestServer::decorateFuture(QTcpSocket *socket, const Future<bool> &f)
 {
     return f
-        ->onSuccess([this, socket](bool isReady) {
+        .onSuccess([this, socket](bool isReady) {
             QJsonObject answer;
             answer.insert("is_ready", isReady);
             sendAnswer(socket, QJsonDocument(answer).toJson(QJsonDocument::Compact), "application/json", 200, "OK");
         })
-        ->onFailure([this, socket](const Failure &f) {
+        .onFailure([this, socket](const Failure &f) {
             QJsonObject answer;
             answer.insert("is_ready", false);
             answer.insert("reason", f.message);
