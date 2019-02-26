@@ -62,7 +62,7 @@ protected slots:
                            const QUrlQuery &queryParams, const QByteArray &body);
 
 private:
-    FutureSP<bool> decorateFuture(QTcpSocket *socket, const FutureSP<bool> &f);
+    Future<bool> decorateFuture(QTcpSocket *socket, const Future<bool> &f);
 
 private:
     QMap<QString, PrinterInfo> m_infos;
