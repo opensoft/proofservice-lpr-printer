@@ -6,6 +6,13 @@ Changelog
  * --
 
 #### Bug Fixing
+ * --
+
+## 0.19.4.2
+#### Features
+ * --
+
+#### Bug Fixing
  * Proper notification about errors from Proof::Hardware::LprPrinter
 
 ## 0.18.9.23

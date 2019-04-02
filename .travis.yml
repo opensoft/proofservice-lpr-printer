@@ -7,7 +7,7 @@ services:
 env:
   global:
     - TARGET_NAME=`echo "$TRAVIS_REPO_SLUG" | sed -r 's|(.*/)?(.+)|\2|'`
-    - PROOF_VERSION=0.18.9.23
+    - PROOF_VERSION=0.19.4.2
     - PATH=$HOME/.local/bin:$PATH
     - secure: jDtfVAPJtMnrSnEhzcvFKtPKgykFbCq3a4Vg6YbsC3zcyOm7io1Y5LGJRaL8+wYg9enpffSz+nZSbxPmJSrC/gf4tcyDKmyST8wWVYLT5i0FzP7RoI5y9gfazdTenaAZOkKauFa4XY36qhC2YCxqdbnHtxRjO59uu9FoMfUHKwo=
     - secure: guj8ClLTeuhJenL0QDaJ7L8dFIoYMI6f36yk/YtKDyDOXisPhRL6Qlbe6MYRxhglozEqLawrivF4fxazUAeWSRq6dk73Tqpg/pNLWLFlohAgLUI+pHp3b45utwH1ootyub/IVtMfRlgkfCiL9WqZWR4vMcz8+3U/cjDrkwQISpE=

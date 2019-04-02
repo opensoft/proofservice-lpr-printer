@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.12.0)
 find_package(Proof REQUIRED)
-proof_project(proofservice-lpr-printer VERSION 0.18.11.16)
+proof_project(proofservice-lpr-printer VERSION 0.19.4.2)
 
 proof_add_target_sources(proofservice-lpr-printer
     main.cpp
