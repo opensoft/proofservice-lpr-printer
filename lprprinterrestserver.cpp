@@ -82,7 +82,7 @@ void LprPrinterRestServer::rest_post_Lpr_PrintRaw(QTcpSocket *socket, const QStr
         return;
     }
 
-    QJsonParseError jsonError;
+    QJsonParseError jsonError{};
     QJsonDocument doc = QJsonDocument::fromJson(body, &jsonError);
     if (jsonError.error == QJsonParseError::NoError) {
         QJsonValue data = doc.object().value("data");
